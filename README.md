@@ -10,14 +10,10 @@
 ## 💻 支持的平台
 - **Telegram**  
   示例链接: [https://rss.4evergr8.workers.dev/?telegram=FlClash](https://rss.4evergr8.workers.dev/?telegram=FlClash)
-- **GitHub**  
-  示例链接: [https://rss.4evergr8.workers.dev/?github=4evergr8/atoolbox](https://rss.4evergr8.workers.dev/?github=4evergr8/atoolbox)
 - **DLsite**  
   示例链接: [https://rss.4evergr8.workers.dev/?dlsite=RG51931](https://rss.4evergr8.workers.dev/?dlsite=RG51931)
 - **Kemono**  
   示例链接: [https://rss.4evergr8.workers.dev/?kemono=fanbox/user/3316400](https://rss.4evergr8.workers.dev/?kemono=fanbox/user/3316400)
-- **JavDB**  
-  示例链接: [https://rss.4evergr8.workers.dev/?javdb=b5Z0](https://rss.4evergr8.workers.dev/?javdb=b5Z0)
 - **Cospuri**  
   示例链接: [https://rss.4evergr8.workers.dev/?cospuri=ria-kurumi](https://rss.4evergr8.workers.dev/?cospuri=ria-kurumi)
 
