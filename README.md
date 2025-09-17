@@ -8,8 +8,8 @@
 - 📡 生成 RSS feed
 
 ## 💻 支持的平台
-- **Telegram**  
-  示例链接: [https://rss.4evergr8.workers.dev/?telegram=FlClash](https://rss.4evergr8.workers.dev/?telegram=FlClash)
+- **GitHub**  
+  示例链接: [https://rss.4evergr8.workers.dev/?github=4evergr8/atoolbox](https://rss.4evergr8.workers.dev/?github=4evergr8/atoolbox)
 - **DLsite**  
   示例链接: [https://rss.4evergr8.workers.dev/?dlsite=RG51931](https://rss.4evergr8.workers.dev/?dlsite=RG51931)
 - **Kemono**  
