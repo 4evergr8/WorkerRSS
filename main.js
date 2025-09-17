@@ -3,8 +3,8 @@ import { github } from "./routers/github.js"
 import { kemono } from "./routers/kemono.js"
 import { cospuri } from "./routers/cospuri.js"
 import { fellatiojapan } from "./routers/fellatiojapan.js"
-import { javdb } from "./routers/javdb.js"
-const funcs = { dlsite,github ,kemono,cospuri,fellatiojapan,javdb}  // 所有支持的网站函数
+import {javbus} from "./routers/javbus.js"
+const funcs = { dlsite,github ,kemono,cospuri,fellatiojapan,javbus}  // 所有支持的网站函数
 
 export default {
     async fetch(request) {
