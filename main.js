@@ -1,11 +1,10 @@
 import { dlsite } from "./routers/dlsite.js"
 import { github } from "./routers/github.js"
 import { kemono } from "./routers/kemono.js"
-import { telegram } from "./routers/telegram.js"
 import { cospuri } from "./routers/cospuri.js"
 import { fellatiojapan } from "./routers/fellatiojapan.js"
 import { javbus } from "./routers/javbus.js"
-const funcs = { dlsite,github ,kemono,telegram,cospuri,fellatiojapan,javbus}  // 所有支持的网站函数
+const funcs = { dlsite,github ,kemono,cospuri,fellatiojapan,javbus}  // 所有支持的网站函数
 
 export default {
     async fetch(request) {
