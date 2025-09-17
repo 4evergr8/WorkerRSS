@@ -1,0 +1,22 @@
+{
+  "name": "sub",
+  "version": "0.0.0",
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "wrangler": "^4.0.0"
+  },
+  "private": true,
+  "scripts": {
+    "start": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@cfworker/web": "^5.0.6",
+    "cheerio": "^1.1.2",
+    "js-yaml": "^4.1.0",
+    "luxon": "^3.7.2",
+    "particles.js": "^2.0.0"
+  },
+  "type": "module"
+}
