@@ -28,13 +28,37 @@ export default {
             return new Response(html, { headers: { "content-type": "text/plain; charset=utf-8" } })
         }
 
+        if (paramName === "proxy") {
+            const resp = await fetch(paramValue, {
+                headers: {
+                    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36",
+                    "Accept": "*/*",
+                    "Accept-Language": "zh-CN,zh;q=0.9",
+                    "Referer": paramValue,
+                    "Origin": paramValue,
+                }
+            })
+            return new Response(resp.body, {
+                headers: {
+                    "content-type": resp.headers.get("content-type") || "application/octet-stream"
+                }
+            })
+        }
+
 
 
         const func = funcs[paramName]  // 动态调用
-        if (typeof func !== "function") return new Response("未知参数：" + paramName, { status: 400 })
+        if (typeof func !== "function") {
+            return new Response("未知参数：" + paramName, { status: 400 })
+        }
 
-        const rss = await func(paramValue)
-        return new Response(rss, { headers: { "content-type": "application/rss+xml; charset=utf-8" } })
+        const workerUrl = new URL(request.url).origin
+        const rss = await func(paramValue, workerUrl)
+
+        return new Response(rss, {
+            headers: { "content-type": "application/rss+xml; charset=utf-8" }
+        })
+
     }
 }
 
