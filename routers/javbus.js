@@ -1,7 +1,7 @@
 import * as cheerio from "cheerio"
 import {itemsToRss} from "../rss.js";
 
-export async function javbus(actorId) {
+export async function javbus(actorId,workerUrl) {
     const url = `https://www.javbus.com/star/${actorId}`
     const resp = await fetch(url, {
         headers: {
@@ -29,6 +29,9 @@ export async function javbus(actorId) {
         let image = img.attr("src") || img.attr("data-src") || img.attr("data-original") || ""
         if (image.startsWith("//")) image = "https:" + image
         if (image.startsWith("/")) image = "https://www.javbus.com" + image
+        image = paramValue
+            .replace(/\.jpg$/, "_b.jpg")
+            .replace("/thumb/", "/cover/")
 
         const titleFull = img.attr("title") || a.find(".photo-info span").first().text().trim() || ""
         const dates = a.find(".photo-info date")
