@@ -1,2 +1,2 @@
-npx wrangler@latest deploy --config rss.toml
-npx wrangler@latest dev --config rss.toml
+npx wrangler@latest deploy
+npx wrangler@latest dev
