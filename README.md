@@ -16,7 +16,8 @@
   示例链接: [https://rss.4evergr8.workers.dev/?kemono=fanbox/user/3316400](https://rss.4evergr8.workers.dev/?kemono=fanbox/user/3316400)
 - **Cospuri**  
   示例链接: [https://rss.4evergr8.workers.dev/?cospuri=ria-kurumi](https://rss.4evergr8.workers.dev/?cospuri=ria-kurumi)
-
+- **Javbus**  
+  示例链接: [https://rss.4evergr8.workers.dev/?javbus=vbt](https://rss.4evergr8.workers.dev/?javbus=vbt)
 
 
 ## 🚀 自部署
