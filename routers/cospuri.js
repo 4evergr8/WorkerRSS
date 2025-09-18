@@ -3,6 +3,7 @@ import {itemsToRss} from "../rss.js";
 
 export async function cospuri(model) {
     const resp = await fetch(`https://cospuri.com/model/${model}`)
+    console.log("cospuri:", model)
     const html = await resp.text()
     const $ = cheerio.load(html)
     const title = $('div.name-en').text().trim()
