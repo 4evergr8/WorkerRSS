@@ -3,6 +3,7 @@ import {itemsToRss} from "../rss.js";
 
 export async function dlsite(RG) {
     const resp = await fetch(`https://www.dlsite.com/maniax/circle/profile/=/maker_id/${RG}.html/per_page/30`)
+    console.log("dlsite:", RG)
     const html = await resp.text()
 
     const $ = cheerio.load(html)
