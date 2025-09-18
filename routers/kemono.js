@@ -8,6 +8,7 @@ export async function kemono(ID) {
 
         }
     })
+    console.log("kemono:", ID)
     const data = await resp.json()
     const items = []
 
