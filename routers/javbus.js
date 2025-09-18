@@ -29,7 +29,7 @@ export async function javbus(actorId,workerUrl) {
         let image = img.attr("src") || img.attr("data-src") || img.attr("data-original") || ""
         if (image.startsWith("//")) image = "https:" + image
         if (image.startsWith("/")) image = "https://www.javbus.com" + image
-        image = paramValue
+        image = image
             .replace(/\.jpg$/, "_b.jpg")
             .replace("/thumb/", "/cover/")
 
@@ -43,7 +43,7 @@ export async function javbus(actorId,workerUrl) {
 番号: ${code}<br/>
 片名: ${titleFull}<br/>
 日期: ${dateText}<br/>
-${ image ? `<img src="${image}" />` : "" }
+${ image ? `<img src="${workerUrl}?proxy=${image}" />` : "" }
 ]]>`
 
         items.push({
@@ -51,7 +51,7 @@ ${ image ? `<img src="${image}" />` : "" }
             link,
             description: desc,
             author: actorName,
-            enclosure: image ? { url: image, type: "image/jpeg", length: "0" } : undefined,
+            enclosure: image ? { url: `${workerUrl}?proxy=${image}`, type: "image/jpeg", length: "0" } : undefined,
             guid: link || `${actorId}-${i}`,
             pubDate
         })
