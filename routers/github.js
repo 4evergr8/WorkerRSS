@@ -3,6 +3,7 @@ import { itemsToRss } from '../rss.js'
 
 export async function github(REP) {
     const apiUrl = `https://api.github.com/repos/${REP}/releases`
+    console.log("github:", REP)
     const resp = await fetch(apiUrl, {
         headers: {
             "User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36",
