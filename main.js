@@ -8,6 +8,9 @@ const funcs = { dlsite,github ,kemono,cospuri,fellatiojapan,javbus}  // 所有�
 
 export default {
     async fetch(request) {
+
+        console.log("UA:", request.headers.get("User-Agent") || "无UA")
+
         const url = new URL(request.url)
         const paramName = Array.from(url.searchParams.keys())[0]
         const paramValue = url.searchParams.get(paramName)
