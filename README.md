@@ -22,6 +22,12 @@
   示例链接: [https://rss.4evergr8.workers.dev/?nhentai=chinese](https://rss.4evergr8.workers.dev/?javbus=vbt)
 
 
+## ⛔ 已放弃的站点
+- [Pixiv](https://www.pixiv.net) 理由：防火墙阻止WorkerIP访问，防爬可过
+- [JavDB](https://javdb.com) 理由：防火墙有几率阻止WorkerIP访问，似乎无防爬
+
+
+
 ## 🚀 自部署
 [![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/4evergr8/WorkerRSS/)
 
