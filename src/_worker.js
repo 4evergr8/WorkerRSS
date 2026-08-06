@@ -6,7 +6,7 @@ const corsHeaders = {
 }
 
 export default {
-    async fetch(request) {
+    async fetch(request, env, ctx) {
         if (request.method === "OPTIONS") {
             return new Response(null, {
                 status: 204,
@@ -73,7 +73,7 @@ export default {
                     throw new Error(`${mode}.js 中没有导出 ${mode} 函数`)
                 }
 
-                const result = await func(value, baseUrl)
+                const result = await func(value, baseUrl,env)
 
                 return new Response(result, {
                     headers: {
