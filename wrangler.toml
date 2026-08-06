@@ -1,4 +1,4 @@
-name = "rss-rss"
+name = "rss"
 pages_build_output_dir = "./src"
 compatibility_date = "2026-06-07"
 [[kv_namespaces]]
