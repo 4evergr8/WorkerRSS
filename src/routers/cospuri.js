@@ -137,12 +137,9 @@ export async function cospuri(model, baseUrl) {
 
         feed.addItem({
             author: [{name: modelName}],
-            content,
-            date: buildStableDate(sampleId),
-            description: summaryDescription,
-            id: fullLink,
+            content:content,
             link: fullLink,
-            title,
+            title:title,
         });
     });
 
