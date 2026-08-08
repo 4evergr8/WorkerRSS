@@ -82,9 +82,7 @@ export async function handjobjapan(model, baseUrl) {
         feed.addItem({
             author: [{name: model.replace(/-/g, " ")}],
             content: content,
-            date: buildStableDate(previewId),
-            id: previewId,
-            link: profileUrl,
+            link: previewId,
             title: itemTitle,
         });
     });
