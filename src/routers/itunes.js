@@ -142,7 +142,6 @@ export async function itunes(artistIdOrName, baseUrl) {
             // 10. 作为一个 item 塞入 feed
             feed.addItem({
                 title: title,
-                id: album.collectionId.toString(),
                 link: itemUrl,
                 content: fullContent,
                 author: [
@@ -150,8 +149,6 @@ export async function itunes(artistIdOrName, baseUrl) {
                         name: artistName
                     }
                 ],
-                date: releaseDate,
-                image: hdArtwork
             });
         }
 
