@@ -348,23 +348,13 @@ export async function nhentai(
             updated: now
         });
 
-
-    const getLangPriority =
+    const hasChinese =
         (tagIds = []) => {
 
-            if (tagIds.includes(CHINESE_TAG)) {
-                return 4;
-            }
+            return tagIds.includes(
+                CHINESE_TAG
+            );
 
-            if (tagIds.includes(ENGLISH_TAG)) {
-                return 3;
-            }
-
-            if (tagIds.includes(JAPANESE_TAG)) {
-                return 2;
-            }
-
-            return 1;
         };
 
 
@@ -404,9 +394,11 @@ export async function nhentai(
 
 
         const priority =
-            getLangPriority(
+            hasChinese(
                 item.tag_ids
-            );
+            )
+                ? 2
+                : 1;
 
 
         let contentTitle = "";
@@ -465,7 +457,7 @@ export async function nhentai(
                             x =>
                                 `<a href="${x.url}">${x.name}</a>`
                         )
-                        .join(" ")
+                        .join(" , ")
                 }</p>`
             );
 
@@ -481,7 +473,7 @@ export async function nhentai(
                             x =>
                                 `<a href="${x.url}">${x.name}</a>`
                         )
-                        .join(" ")
+                        .join(" , ")
                 }</p>`
             );
 
@@ -497,7 +489,7 @@ export async function nhentai(
                             x =>
                                 `<a href="${x.url}">${x.name}</a>`
                         )
-                        .join(" ")
+                        .join(" , ")
                 }</p>`
             );
 
