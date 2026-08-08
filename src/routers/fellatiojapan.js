@@ -97,14 +97,9 @@ export async function fellatiojapan(model, baseUrl) {
 `;
 
         feed.addItem({
-            author: girls.map(name => ({
-                name
-            })),
-            content,
-            date: new Date(`${publishDate}T00:00:00Z`),
-            description: summaryDescription,
-            id: previewId,
-            link: profileUrl,
+            author: girls.map(name => ({name})),
+            content:content,
+            link: previewId,
             title,
         });
     });
