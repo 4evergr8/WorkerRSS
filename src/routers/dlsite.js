@@ -84,8 +84,6 @@ ${images.map(v => `<img src="${v}" />`).join("\n")}
         feed.addItem({
             author: [{ name: author }],
             content: fullContent,
-            date: new Date(now.getTime() - i * 1000),
-            id: link,
             link: link,
             title: itemTitle,
         });
