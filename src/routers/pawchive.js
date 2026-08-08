@@ -89,8 +89,6 @@ export async function pawchive(input, baseUrl) {
         feed.addItem({
             author: [{name: profile.name}],
             content: fullContent,
-            date: new Date(post.published),
-            id: `https://pawchive.pw/${input}/post/${post.id}`,
             link: `https://pawchive.pw/${input}/post/${post.id}`,
             title: cleanText(post.title),
         });
