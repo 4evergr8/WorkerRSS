@@ -61,8 +61,6 @@ ${assetsHtml}
         feed.addItem({
             author: [{name: r.author?.login}],
             content: fullContent,
-            date: new Date(r.published_at),
-            id: r.html_url,
             link: r.html_url,
             title: r.name
         });
