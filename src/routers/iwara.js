@@ -86,9 +86,7 @@ export async function iwara(input, baseUrl) {
 
         feed.addItem({
             author: [{name: profileData.user.name}],
-            content,
-            date: new Date(video.createdAt),
-            id: `https://www.iwara.tv/video/${previewId}`,
+            content:content,
             link: `https://www.iwara.tv/video/${previewId}`,
             title: itemTitle,
         });
