@@ -1,4 +1,4 @@
-import { Feed } from "feed";
+import {Feed} from "feed";
 
 
 const CHINESE_TAG = 29963;
@@ -31,7 +31,6 @@ async function loadCache(env, key) {
 }
 
 
-
 async function saveCache(env, key, items) {
 
     await env.RSS_KV.put(
@@ -43,7 +42,6 @@ async function saveCache(env, key, items) {
         })
     );
 }
-
 
 
 async function fetchTagId(input) {
@@ -71,48 +69,46 @@ async function fetchTagId(input) {
 }
 
 
-
 async function fetchNewItems(
     tagId,
     cached
-){
+) {
 
     const cacheIds =
         cached
             ?
             new Set(
                 cached.map(
-                    x=>x.id
+                    x => x.id
                 )
             )
             :
             null;
 
 
-    const result=[];
+    const result = [];
 
 
-    let stop=false;
+    let stop = false;
 
 
-    let page=1;
+    let page = 1;
 
 
-    while(
-        page<=5 &&
+    while (
+        page <= 5 &&
         !stop
-        ){
+        ) {
 
         const url =
-            `https://nhentai.net/api/v2/galleries/tagged`+
+            `https://nhentai.net/api/v2/galleries/tagged` +
             `?tag_id=${tagId}&sort=date&page=${page}&per_page=100`;
-
 
 
         const resp = await fetch(url);
 
 
-        if(!resp.ok){
+        if (!resp.ok) {
 
             throw new Error(
                 `page ${page} 请求失败`
@@ -124,26 +120,24 @@ async function fetchNewItems(
             await resp.json();
 
 
-
-        if(
+        if (
             !data.result ||
-            data.result.length===0
-        ){
+            data.result.length === 0
+        ) {
             break;
         }
 
 
-
-        for(
+        for (
             const item of data.result
-            ){
+            ) {
 
-            if(
+            if (
                 cacheIds &&
                 cacheIds.has(item.id)
-            ){
+            ) {
 
-                stop=true;
+                stop = true;
                 break;
 
             }
@@ -163,14 +157,13 @@ async function fetchNewItems(
 }
 
 
-
-function simplifyItem(item){
+function simplifyItem(item) {
 
     return {
 
-        id:item.id,
+        id: item.id,
 
-        media_id:item.media_id,
+        media_id: item.media_id,
 
         japanese_title:
             item.japanese_title || "",
@@ -190,21 +183,70 @@ function simplifyItem(item){
 }
 
 
-
-function cleanText(text=""){
+function cleanText(text = "") {
 
     return String(text)
-        .replace(/[\x00-\x1F\x7F-\x9F]/g,"")
+        .replace(/[\x00-\x1F\x7F-\x9F]/g, "")
         .trim();
 }
+function parseTags(tagIds = []) {
 
+    const result = {
+        parody: [],
+        character: [],
+        tag: []
+    };
+
+
+    for (const id of tagIds) {
+
+        const url = tagMap.get(id);
+
+
+        // 不存在直接跳过
+        if (!url) {
+            continue;
+        }
+
+
+        const match =
+            url.match(
+                /^\/(character|parody|tag)\/(.+?)\/$/
+            );
+
+
+        // 非目标分类跳过
+        if (!match) {
+            continue;
+        }
+
+
+        const type = match[1];
+
+        const name = match[2];
+
+
+        result[type].push({
+
+            name,
+
+            url:
+                `https://nhentai.net${url}`
+
+        });
+
+    }
+
+
+    return result;
+}
 
 
 export async function nhentai(
     input,
     baseUrl,
     env
-){
+) {
 
     const now =
         new Date();
@@ -214,10 +256,8 @@ export async function nhentai(
         `nhentai/${input}`;
 
 
-
     const tagId =
         await fetchTagId(input);
-
 
 
     const cached =
@@ -227,7 +267,6 @@ export async function nhentai(
         );
 
 
-
     const fresh =
         await fetchNewItems(
             tagId,
@@ -235,24 +274,21 @@ export async function nhentai(
         );
 
 
-
     let all;
 
 
+    if (cached) {
 
-    if(cached){
-
-        all=[
+        all = [
             ...fresh,
             ...cached
         ];
 
-    }else{
+    } else {
 
-        all=fresh;
+        all = fresh;
 
     }
-
 
 
     /*
@@ -263,9 +299,9 @@ export async function nhentai(
         new Map();
 
 
-    for(
+    for (
         const item of all
-        ){
+        ) {
 
         map.set(
             item.id,
@@ -275,11 +311,10 @@ export async function nhentai(
     }
 
 
-    all=[
+    all = [
         ...map.values()
     ]
-        .slice(0,500);
-
+        .slice(0, 500);
 
 
     await saveCache(
@@ -289,17 +324,15 @@ export async function nhentai(
     );
 
 
-
     const currentRssUrl =
         `${baseUrl}?nhentai=${input}`;
-
 
 
     const feed =
         new Feed({
 
-            feedLinks:{
-                rss:currentRssUrl
+            feedLinks: {
+                rss: currentRssUrl
             },
 
             image:
@@ -311,23 +344,22 @@ export async function nhentai(
             title:
                 `nhentai - ${input}`,
 
-            updated:now
+            updated: now
         });
 
 
-
     const getLangPriority =
-        (tagIds=[])=>{
+        (tagIds = []) => {
 
-            if(tagIds.includes(CHINESE_TAG)){
+            if (tagIds.includes(CHINESE_TAG)) {
                 return 4;
             }
 
-            if(tagIds.includes(ENGLISH_TAG)){
+            if (tagIds.includes(ENGLISH_TAG)) {
                 return 3;
             }
 
-            if(tagIds.includes(JAPANESE_TAG)){
+            if (tagIds.includes(JAPANESE_TAG)) {
                 return 2;
             }
 
@@ -335,15 +367,13 @@ export async function nhentai(
         };
 
 
-
     const works =
         new Map();
 
 
-
-    for(
+    for (
         const item of all
-        ){
+        ) {
 
 
         const japaneseTitle =
@@ -363,15 +393,13 @@ export async function nhentai(
             englishTitle;
 
 
-
         const uniqueId =
             title
-                .replace(/\[.*?]/g,"")
-                .replace(/\(.*?\)/g,"")
-                .replace(/\s/g,"")
-                .replace(/\p{P}/gu,"")
+                .replace(/\[.*?]/g, "")
+                .replace(/\(.*?\)/g, "")
+                .replace(/\s/g, "")
+                .replace(/\p{P}/gu, "")
                 .toLowerCase();
-
 
 
         const priority =
@@ -380,14 +408,13 @@ export async function nhentai(
             );
 
 
+        let contentTitle = "";
 
-        let contentTitle="";
+        if (englishTitle) {
 
-        if(englishTitle){
-
-            if(
+            if (
                 englishTitle.includes("|")
-            ){
+            ) {
 
                 contentTitle =
                     englishTitle
@@ -395,20 +422,19 @@ export async function nhentai(
                         .pop()
                         .trim();
 
-            }else{
+            } else {
 
                 contentTitle =
                     englishTitle;
 
             }
 
-        }else{
+        } else {
 
             contentTitle =
                 japaneseTitle;
 
         }
-
 
 
         const coverExt =
@@ -420,18 +446,16 @@ export async function nhentai(
             "jpg";
 
 
-
-        const images=[
+        const images = [
             `<p>${contentTitle}</p>`
         ];
 
 
-
-        for(
-            let p=1;
-            p<=item.num_pages;
+        for (
+            let p = 1;
+            p <= item.num_pages;
             p++
-        ){
+        ) {
 
             images.push(
                 `<img src="https://i.nhentai.net/galleries/${item.media_id}/${p}.${coverExt}" loading="lazy" alt="P${p}/${item.num_pages}"/>`
@@ -440,34 +464,12 @@ export async function nhentai(
         }
 
 
-
-        const feedItem={
-
-            author:[
-                {
-                    name:input
-                }
-            ],
-
-            content:
-                images.join(""),
-
-            date:
-                new Date(
-                    1600000000000 +
-                    item.id * 1000
-                ),
-
-            id:
-                `https://nhentai.net/g/${item.id}/`,
-
-            link:
-                `https://nhentai.net/g/${item.id}/`,
-
-            title
-
+        const feedItem = {
+            author: [{name: input}],
+            content: images.join(""),
+            link: `https://nhentai.net/g/${item.id}/`,
+            title:title
         };
-
 
 
         const old =
@@ -476,17 +478,16 @@ export async function nhentai(
             );
 
 
-
-        if(
+        if (
             !old ||
-            priority>old.priority
-        ){
+            priority > old.priority
+        ) {
 
             works.set(
                 uniqueId,
                 {
                     priority,
-                    item:feedItem
+                    item: feedItem
                 }
             );
 
@@ -495,18 +496,16 @@ export async function nhentai(
     }
 
 
-
-    for(
+    for (
         const {
             item
         }
         of works.values()
-        ){
+        ) {
 
         feed.addItem(item);
 
     }
-
 
 
     return feed.rss2();
