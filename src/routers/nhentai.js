@@ -3,8 +3,6 @@ import {tagMap} from "../nhentai_tags.js";
 
 
 const CHINESE_TAG = 29963;
-const ENGLISH_TAG = 12227;
-const JAPANESE_TAG = 6346;
 
 
 async function loadCache(env, key) {
@@ -291,12 +289,12 @@ export async function nhentai(
 
     }
 
-
     /*
-        根据gid去重
+        不使用gid去重
+        只保留原来的标题逻辑去重
     */
 
-    const map =
+    const uniqueWorks =
         new Map();
 
 
@@ -304,18 +302,71 @@ export async function nhentai(
         const item of all
         ) {
 
-        map.set(
-            item.id,
-            item
-        );
+
+        const japaneseTitle =
+            cleanText(
+                item.japanese_title
+            );
+
+
+        const englishTitle =
+            cleanText(
+                item.english_title
+            );
+
+
+        const title =
+            japaneseTitle ||
+            englishTitle;
+
+
+        const uniqueId =
+            title
+                .replace(/\[.*?]/g, "")
+                .replace(/\(.*?\)/g, "")
+                .replace(/\s/g, "")
+                .replace(/\p{P}/gu, "")
+                .toLowerCase();
+
+
+        const priority =
+            item.tag_ids.includes(CHINESE_TAG)
+                ? 2
+                : 1;
+
+
+        const old =
+            uniqueWorks.get(
+                uniqueId
+            );
+
+
+        if (
+            !old ||
+            priority > old.priority
+        ) {
+
+            uniqueWorks.set(
+                uniqueId,
+                {
+                    priority,
+                    item
+                }
+            );
+
+        }
 
     }
 
 
-    all = [
-        ...map.values()
-    ]
-        .slice(0, 500);
+    all =
+        [
+            ...uniqueWorks.values()
+        ]
+            .map(
+                x => x.item
+            )
+            .slice(0,500);
 
 
     await saveCache(
