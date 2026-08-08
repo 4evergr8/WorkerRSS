@@ -193,7 +193,9 @@ function parseTags(tagIds = []) {
     const result = {
         parody: [],
         character: [],
-        tag: []
+        tag: [],
+        artist:[],
+        group:[]
     };
 
 
@@ -210,7 +212,7 @@ function parseTags(tagIds = []) {
 
         const match =
             url.match(
-                /^\/(character|parody|tag)\/(.+?)\/$/
+                /^\/(character|parody|tag|artist|group)\/(.+?)\/$/
             );
 
 
@@ -497,6 +499,34 @@ export async function nhentai(
 
 
         const tagHtml = [];
+        if (parsedTags.group.length) {
+
+            tagHtml.push(
+                `<p>社团: ${
+                    parsedTags.group
+                        .map(
+                            x =>
+                                `<a href="${x.url}">${x.name}</a>`
+                        )
+                        .join(" , ")
+                }</p>`
+            );
+
+        }
+        if (parsedTags.artist.length) {
+
+            tagHtml.push(
+                `<p>画师: ${
+                    parsedTags.artist
+                        .map(
+                            x =>
+                                `<a href="${x.url}">${x.name}</a>`
+                        )
+                        .join(" , ")
+                }</p>`
+            );
+
+        }
 
 
         if (parsedTags.parody.length) {
@@ -534,7 +564,7 @@ export async function nhentai(
         if (parsedTags.tag.length) {
 
             tagHtml.push(
-                `<p>标签: ${
+                `<p>内容: ${
                     parsedTags.tag
                         .map(
                             x =>
