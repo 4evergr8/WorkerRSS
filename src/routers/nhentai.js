@@ -1,4 +1,5 @@
 import {Feed} from "feed";
+import {tagMap} from "../nhentai_tags.js";
 
 
 const CHINESE_TAG = 29963;
@@ -446,8 +447,70 @@ export async function nhentai(
             "jpg";
 
 
+        const parsedTags =
+            parseTags(
+                item.tag_ids
+            );
+
+
+        const tagHtml = [];
+
+
+        if (parsedTags.parody.length) {
+
+            tagHtml.push(
+                `<p>原作: ${
+                    parsedTags.parody
+                        .map(
+                            x =>
+                                `<a href="${x.url}">${x.name}</a>`
+                        )
+                        .join(" ")
+                }</p>`
+            );
+
+        }
+
+
+        if (parsedTags.character.length) {
+
+            tagHtml.push(
+                `<p>人物: ${
+                    parsedTags.character
+                        .map(
+                            x =>
+                                `<a href="${x.url}">${x.name}</a>`
+                        )
+                        .join(" ")
+                }</p>`
+            );
+
+        }
+
+
+        if (parsedTags.tag.length) {
+
+            tagHtml.push(
+                `<p>标签: ${
+                    parsedTags.tag
+                        .map(
+                            x =>
+                                `<a href="${x.url}">${x.name}</a>`
+                        )
+                        .join(" ")
+                }</p>`
+            );
+
+        }
+
+
+
         const images = [
-            `<p>${contentTitle}</p>`
+
+            `<p>${contentTitle}</p>`,
+
+            ...tagHtml
+
         ];
 
 
