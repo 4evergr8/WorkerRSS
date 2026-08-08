@@ -3,7 +3,9 @@ import fs from "fs/promises";
 const types = [
     "character",
     "parody",
-    "tag"
+    "tag",
+    "artist",
+    "group"
 ];
 
 const API = "https://nhentai.net/api/v2/tags";
@@ -102,7 +104,7 @@ async function main() {
 
 
     const text =
-        `const tagMap = new Map<number, string>([
+        `export const tagMap = new Map([
 ${[
             ...tagMap.entries()
         ]
