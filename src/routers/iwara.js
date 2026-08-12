@@ -1,5 +1,5 @@
 import { Feed } from "feed";
-import {UA} from "../strings.js";
+import {UA} from "../others/strings.js";
 
 export async function iwara(input, baseUrl) {
     const now = new Date();
