@@ -1,5 +1,5 @@
 import {Feed} from "feed";
-import {UA} from "../strings.js";
+import {UA} from "../others/strings.js";
 
 export async function github(REP, baseUrl) {
     const apiUrl = `https://api.github.com/repos/${REP}/releases`;
