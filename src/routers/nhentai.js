@@ -1,5 +1,5 @@
 import {Feed} from "feed";
-import {tagMap} from "../nhentai_tags.js";
+import {tagMap} from "../others/nhentai_tags.js";
 
 
 const CHINESE_TAG = 29963;
